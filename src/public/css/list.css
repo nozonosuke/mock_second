@@ -1,0 +1,196 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff;
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    min-height: calc(100vh - 80px);
+}
+
+/* =========================
+   ヘッダー
+========================= */
+.header {
+    background-color: #000;
+    width: 100%;
+}
+
+.header__inner {
+    width: 100%;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.header__logo {
+    display: inline-flex;
+    align-items: center;
+}
+
+.header__logo img {
+    display: block;
+    height: 36px;
+    width: auto;
+}
+
+/* ナビゲーション */
+.header-nav {
+    display: flex;
+    align-items: center;
+}
+
+.header-nav__list {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.header-nav__item {
+    display: flex;
+    align-items: center;
+}
+
+.header-nav__link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    transition: opacity 0.2s ease;
+}
+
+.header-nav__link:hover {
+    opacity: 0.7;
+}
+
+.header-nav__logout-form {
+    margin: 0;
+}
+
+.header-nav__logout-button {
+    background-color: #fff;
+    border: 1px solid #fff;
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 10px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.header-nav__logout-button:hover {
+    opacity: 0.8;
+}
+
+.attendance-list-page {
+    padding: 70px 0;
+}
+
+.attendance-list-page__inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.attendance-list-page__title {
+    position: relative;
+    margin: 0 0 40px;
+    padding-left: 18px;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.attendance-list-page__title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 8px;
+    height: 36px;
+    background-color: #000;
+    border-radius: 2px;
+}
+
+.attendance-month-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 48px;
+    padding: 16px 24px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.attendance-month-nav__link {
+    color: #737373;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.attendance-month-nav__link--next {
+    text-align: right;
+}
+
+.attendance-month-nav__current {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #000;
+}
+
+.attendance-month-nav__icon {
+    font-size: 22px;
+}
+
+.attendance-list-table-wrap {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.attendance-list-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.attendance-list-table th,
+.attendance-list-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e1e1e1;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #666;
+}
+
+.attendance-list-table th {
+    color: #777;
+    background-color: #fff;
+}
+
+.attendance-list-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.attendance-list-table__detail-link {
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.attendance-list-table__detail-link:hover {
+    opacity: 0.7;
+}
