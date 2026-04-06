@@ -92,79 +92,79 @@ main {
     opacity: 0.8;
 }
 
-.request-list {
-    background: #f1f1f1;
+.attendance-list {
+    background-color: #f1f1f1;
     min-height: calc(100vh - 80px);
-    padding: 40px 0;
+    padding: 60px 20px;
 }
 
-.request-list__inner {
-    width: 900px;
+.attendance-list__inner {
+    max-width: 900px;
     margin: 0 auto;
 }
 
-.request-list__heading {
+.attendance-list__title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    padding-left: 20px;
+    border-left: 6px solid #000;
+}
+
+.attendance-list__nav {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 18px 24px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 16px;
     margin-bottom: 40px;
 }
 
-.request-list__heading-line {
-    display: inline-block;
-    width: 8px;
-    height: 36px;
-    background: #000;
-}
-
-.request-list__title {
-    font-size: 32px;
-    font-weight: bold;
-    margin: 0;
-}
-
-.request-list__tabs {
-    display: flex;
-    gap: 40px;
-    border-bottom: 1px solid #000;
-    margin-bottom: 30px;
-    padding-left: 20px;
-}
-
-.request-list__tab {
-    display: inline-block;
-    padding: 12px 0;
+.attendance-list__nav-link {
     text-decoration: none;
-    color: #000;
+    color: #666;
     font-weight: bold;
+    font-size: 18px;
 }
 
-.request-list__tab--active {
-    border-bottom: 2px solid #000;
+.attendance-list__date {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
 }
 
-.request-list__table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #fff;
+.attendance-list__table-wrap {
+    background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
 }
 
-.request-list__table th,
-.request-list__table td {
-    padding: 16px;
-    text-align: left;
+.attendance-list__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.attendance-list__table th,
+.attendance-list__table td {
+    padding: 20px 16px;
+    text-align: center;
     border-bottom: 1px solid #ddd;
+    font-size: 18px;
 }
 
-.request-list__table th {
-    background: #f8f8f8;
+.attendance-list__table th {
     color: #666;
+    font-weight: bold;
 }
 
-.request-list__table td a {
+.attendance-list__table td {
+    color: #555;
+    font-weight: 600;
+}
+
+.attendance-list__detail-link {
+    text-decoration: none;
     color: #000;
     font-weight: bold;
-    text-decoration: none;
 }

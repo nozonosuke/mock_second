@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AttendanceDetailController;
 use App\Http\Controllers\StampCorrectionRequestController;
+use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AdminAttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,10 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/attendance/detail/{id}', [AttendanceDetailController::class, 'requestCorrection'])
     ->name('attendance.requestCorrection');
 
-    // 申請一覧画面を作る段階で使う
-    // Route::get('/stamp_correction_request/list', [StampCorrectionRequestController::class, 'list'])
-    //     ->name('stamp_correction_request.list');
-
     Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn'])->name('attendance.clockIn');
     Route::post('/attendance/break-start', [AttendanceController::class, 'breakStart'])->name('attendance.breakStart');
     Route::post('/attendance/break-end', [AttendanceController::class, 'breakEnd'])->name('attendance.breakEnd');
@@ -61,4 +59,18 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/stamp_correction_request', [StampCorrectionRequestController::class, 'store'])
         ->name('stamp_correction_request.store');
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AdminLoginController::class, 'create'])->name('admin.login');
+    Route::post('/login', [AdminLoginController::class, 'store'])->name('admin.login.store');
+    Route::post('/logout', [AdminLoginController::class, 'destroy'])->name('admin.logout');
+});
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/attendance/list', [AdminAttendanceController::class, 'index'])
+        ->name('attendance.list');
+
+    Route::get('/attendance/{attendance}', [AdminAttendanceController::class, 'show'])
+        ->name('attendance.show');
 });
