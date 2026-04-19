@@ -18,6 +18,7 @@ class Attendance extends Model
         'clock_in',
         'clock_out',
         'status',
+        'note',
     ];
 
     /**

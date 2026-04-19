@@ -90,79 +90,65 @@ main {
     opacity: 0.7;
 }
 
-.attendance-list {
-    background-color: #f1f1f1;
+/* =========================
+   スタッフ一覧
+========================= */
+.staff-list {
+    background-color: #e9e9ec;
     min-height: calc(100vh - 80px);
-    padding: 60px 20px;
+    padding: 70px 20px;
 }
 
-.attendance-list__inner {
-    max-width: 900px;
+.staff-list__inner {
+    max-width: 800px;
     margin: 0 auto;
 }
 
-.attendance-list__title {
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 40px;
-    padding-left: 20px;
-    border-left: 6px solid #000;
-}
-
-.attendance-list__nav {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 18px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-}
-
-.attendance-list__nav-link {
-    text-decoration: none;
-    color: #666;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.attendance-list__date {
+.staff-list__title {
     font-size: 28px;
-    font-weight: bold;
-    color: #333;
+    font-weight: 700;
+    margin-bottom: 80px;
+    padding-left: 18px;
+    border-left: 7px solid #000;
+    line-height: 1.2;
 }
 
-.attendance-list__table-wrap {
+.staff-list__table-wrap {
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
-.attendance-list__table {
+.staff-list__table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.attendance-list__table th,
-.attendance-list__table td {
-    padding: 20px 16px;
+.staff-list__table th,
+.staff-list__table td {
+    padding: 16px 14px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
-    font-size: 18px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 16px;
 }
 
-.attendance-list__table th {
+.staff-list__table th {
     color: #666;
-    font-weight: bold;
+    font-weight: 700;
+    background-color: #fff;
 }
 
-.attendance-list__table td {
-    color: #555;
+.staff-list__table td {
+    color: #666;
     font-weight: 600;
 }
 
-.attendance-list__detail-link {
+.staff-list__detail-link {
     text-decoration: none;
     color: #000;
-    font-weight: bold;
+    font-weight: 700;
+}
+
+.staff-list__detail-link:hover {
+    opacity: 0.7;
 }

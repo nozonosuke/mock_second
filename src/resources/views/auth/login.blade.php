@@ -10,8 +10,9 @@
         <h1>ログイン</h1>
     </div>
 
-    <form action="{{ route('login.store') }}" class="form" method="post">
+    <form action="{{ url('/login') }}" class="form" method="post">
         @csrf
+        <input type="hidden" name="login_type" value="user">
 
         <div class="form__group">
             <div class="form__group-title">
@@ -52,12 +53,6 @@
                     @enderror
                 </div>
             </div>
-        </div>
-
-        <div class="form__error">
-            @if (session('auth_error'))
-                {{ session('auth_error') }}
-            @endif
         </div>
 
         <div class="form__button">

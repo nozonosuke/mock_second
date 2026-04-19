@@ -10,7 +10,7 @@
         <h1>会員登録</h1>
     </div>
 
-    <form action="/register" class="form" method="post" novalidate>
+    <form action="{{ url('/register') }}" class="form" method="post" novalidate>
         @csrf
         <div class="form__group">
             <div class="form__group-title">

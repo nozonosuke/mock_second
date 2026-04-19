@@ -10,9 +10,7 @@ main {
     min-height: calc(100vh - 80px);
 }
 
-/* =========================
-   ヘッダー
-========================= */
+/* header */
 .header {
     background-color: #000;
     width: 100%;
@@ -25,17 +23,6 @@ main {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-}
-
-.header__logo {
-    display: inline-flex;
-    align-items: center;
-}
-
-.header__logo img {
-    display: block;
-    height: 36px;
-    width: auto;
 }
 
 .header-nav {
@@ -63,11 +50,6 @@ main {
     font-size: 20px;
     font-weight: 700;
     line-height: 1;
-    transition: opacity 0.2s ease;
-}
-
-.header-nav__link:hover {
-    opacity: 0.7;
 }
 
 .header-nav__logout-form {
@@ -83,86 +65,90 @@ main {
     line-height: 1;
     padding: 0;
     cursor: pointer;
-    transition: opacity 0.2s ease;
 }
 
-.header-nav__logout-button:hover {
-    opacity: 0.7;
-}
-
-.attendance-list {
-    background-color: #f1f1f1;
+/* page */
+.request-list {
+    background-color: #e9e9ec;
     min-height: calc(100vh - 80px);
-    padding: 60px 20px;
+    padding: 70px 20px;
 }
 
-.attendance-list__inner {
-    max-width: 900px;
+.request-list__inner {
+    max-width: 920px;
     margin: 0 auto;
 }
 
-.attendance-list__title {
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 40px;
-    padding-left: 20px;
-    border-left: 6px solid #000;
-}
-
-.attendance-list__nav {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 18px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-}
-
-.attendance-list__nav-link {
-    text-decoration: none;
-    color: #666;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.attendance-list__date {
+.request-list__title {
     font-size: 28px;
-    font-weight: bold;
-    color: #333;
+    font-weight: 700;
+    margin-bottom: 48px;
+    padding-left: 18px;
+    border-left: 7px solid #000;
+    line-height: 1.2;
 }
 
-.attendance-list__table-wrap {
+.request-list__tabs {
+    display: flex;
+    gap: 80px;
+    padding: 0 0 16px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #000;
+}
+
+.request-list__tab {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+    padding-bottom: 4px;
+}
+
+.request-list__tab--active {
+    position: relative;
+}
+
+.request-list__tab--active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -17px;
+    width: 100%;
+    height: 2px;
+    background-color: #000;
+}
+
+.request-list__table-wrap {
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
-.attendance-list__table {
+.request-list__table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.attendance-list__table th,
-.attendance-list__table td {
-    padding: 20px 16px;
+.request-list__table th,
+.request-list__table td {
+    padding: 16px 12px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
-    font-size: 18px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 16px;
 }
 
-.attendance-list__table th {
+.request-list__table th {
     color: #666;
-    font-weight: bold;
+    font-weight: 700;
 }
 
-.attendance-list__table td {
-    color: #555;
+.request-list__table td {
+    color: #666;
     font-weight: 600;
 }
 
-.attendance-list__detail-link {
+.request-list__detail-link {
     text-decoration: none;
     color: #000;
-    font-weight: bold;
+    font-weight: 700;
 }

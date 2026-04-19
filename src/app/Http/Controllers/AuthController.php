@@ -3,46 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Actions\Fortify\CreateNewUser;
 
 class AuthController extends Controller
 {
     public function create()
     {
         return view('auth.register');
+    
     }
-
-    public function store(RegisterUserRequest $request)
+    public function store(RegisterUserRequest $request, CreateNewUser $creator)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $user = $creator->create($request->validated());
 
         Auth::login($user);
 
-        return redirect()->route('attendance.index');
-    }
+        $user->sendEmailVerificationNotification();
 
-    public function login(LoginRequest $request)
-    {
-        $credentials = $request->only('email', 'password');
-
-        if (!Auth::attempt($credentials)) {
-            return back()
-                ->withInput($request->only('email'))
-                ->with('auth_error', 'ログイン情報が登録されていません');
-        }
-
-        $request->session()->regenerate();
-
-        return redirect()->route('attendance.index');
+        return redirect()->route('verification.notice');
     }
 
     public function logout(Request $request)
@@ -54,10 +37,4 @@ class AuthController extends Controller
 
         return redirect()->route('login');
     }
-
-    public function showLoginForm()
-    {
-        return view('auth.login');
-    }
-
 }
