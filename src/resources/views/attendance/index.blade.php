@@ -44,14 +44,14 @@
                     <button type="submit" class="attendance-button attendance-button--primary">出勤</button>
                 </form>
             @elseif ($status === 'working')
-                <form method="POST" action="{{ route('attendance.breakStart') }}">
-                    @csrf
-                    <button type="submit" class="attendance-button attendance-button--secondary">休憩入</button>
-                </form>
-
                 <form method="POST" action="{{ route('attendance.clockOut') }}">
                     @csrf
                     <button type="submit" class="attendance-button attendance-button--primary">退勤</button>
+                </form>
+
+                <form method="POST" action="{{ route('attendance.breakStart') }}">
+                    @csrf
+                    <button type="submit" class="attendance-button attendance-button--secondary">休憩入</button>
                 </form>
             @elseif ($status === 'on_break')
                 <form method="POST" action="{{ route('attendance.breakEnd') }}">

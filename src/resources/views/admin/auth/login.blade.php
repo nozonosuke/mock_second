@@ -7,7 +7,7 @@
 @section('content')
 <div class="login-form__content">
     <div class="login-form__heading">
-        <h2>Admin Login</h2>
+        <h2>管理者ログイン</h2>
     </div>
 
     <form method="POST" action="{{ url('/login') }}" class="form">
@@ -16,22 +16,22 @@
         <input type="hidden" name="login_type" value="admin">
 
         <div class="form__group">
-            <label for="email">メールアドレス</label>
-            <input id="email" type="email" name="email" value="{{ old('email') }}">
+            <label for="email" class="form__label">メールアドレス</label>
+            <input id="email" class="form__input" type="email" name="email" value="{{ old('email') }}">
             @error('email')
                 <p class="form__error">{{ $message }}</p>
             @enderror
         </div>
 
         <div class="form__group">
-            <label for="password">パスワード</label>
-            <input id="password" type="password" name="password">
+            <label for="password" class="form__label">パスワード</label>
+            <input id="password" class="form__input" type="password" name="password">
             @error('password')
                 <p class="form__error">{{ $message }}</p>
             @enderror
         </div>
 
-        <button type="submit" class="form__button">ログイン</button>
+        <button type="submit" class="form__button">管理者ログインする</button>
     </form>
 </div>
 @endsection

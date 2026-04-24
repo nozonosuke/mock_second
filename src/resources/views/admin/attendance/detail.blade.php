@@ -168,8 +168,6 @@
             </div>
 
             <div class="detail-actions">
-                <button type="button" class="detail-back-button" onclick="history.back()">戻る</button>
-
                 @unless($isPending)
                     <button type="submit" class="detail-submit-button">修正</button>
                 @endunless

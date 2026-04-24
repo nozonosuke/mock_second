@@ -37,7 +37,8 @@
             </a>
 
             <div class="staff-attendance__month">
-                {{ $currentMonth->format('Y/m') }}
+                <span class="staff-attendance__month-icon">📅</span>
+                <span>{{ $currentMonth->format('Y/m') }}</span>
             </div>
 
             <a href="{{ route('admin.staff.attendance', ['user' => $user->id, 'month' => $nextMonth]) }}" class="staff-attendance__nav-link">

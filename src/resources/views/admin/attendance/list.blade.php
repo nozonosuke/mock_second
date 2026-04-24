@@ -37,7 +37,8 @@
             </a>
 
             <div class="attendance-list__date">
-                {{ $currentDate->format('Y/m/d') }}
+                <span class="attendance-list__date-icon">📅</span>
+                <span>{{ $currentDate->format('Y/m/d') }}</span>
             </div>
 
             <a href="{{ route('admin.attendance.list', ['date' => $nextDate]) }}" class="attendance-list__nav-link">

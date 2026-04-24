@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #fff;
+    background-color: #f1f0f4;
     color: #000;
     margin: 0;
     padding: 0;
@@ -8,6 +8,7 @@ body {
 
 main {
     min-height: calc(100vh - 80px);
+    background-color: #f1f0f4;
 }
 
 /* =========================
@@ -20,7 +21,7 @@ main {
 
 .header__inner {
     width: 100%;
-    padding: 16px 40px;
+    padding: 14px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -38,7 +39,6 @@ main {
     width: auto;
 }
 
-/* ナビゲーション */
 .header-nav {
     display: flex;
     align-items: center;
@@ -61,14 +61,8 @@ main {
 .header-nav__link {
     color: #fff;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
-    line-height: 1;
-    transition: opacity 0.2s ease;
-}
-
-.header-nav__link:hover {
-    opacity: 0.7;
 }
 
 .header-nav__logout-form {
@@ -76,36 +70,33 @@ main {
 }
 
 .header-nav__logout-button {
-    background-color: #fff;
-    border: 1px solid #fff;
-    color: #000;
+    background: none;
+    border: none;
+    color: #fff;
     font-size: 18px;
     font-weight: 700;
-    line-height: 1;
-    padding: 10px 18px;
-    border-radius: 4px;
+    padding: 0;
     cursor: pointer;
-    transition: opacity 0.2s ease;
 }
 
-.header-nav__logout-button:hover {
-    opacity: 0.8;
-}
-
+/* =========================
+   勤怠一覧
+========================= */
 .attendance-list-page {
-    padding: 70px 0;
+    padding: 60px 0 70px;
 }
 
 .attendance-list-page__inner {
-    max-width: 800px;
+    width: 100%;
+    max-width: 720px;
     margin: 0 auto;
 }
 
 .attendance-list-page__title {
     position: relative;
-    margin: 0 0 40px;
+    margin: 0 0 32px;
     padding-left: 18px;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 700;
     line-height: 1.2;
 }
@@ -114,9 +105,9 @@ main {
     content: "";
     position: absolute;
     left: 0;
-    top: 2px;
-    width: 8px;
-    height: 36px;
+    top: 0;
+    width: 6px;
+    height: 32px;
     background-color: #000;
     border-radius: 2px;
 }
@@ -125,39 +116,35 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 48px;
-    padding: 16px 24px;
+    margin-bottom: 32px;
+    padding: 14px 20px;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .attendance-month-nav__link {
-    color: #737373;
+    color: #777;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
-}
-
-.attendance-month-nav__link--next {
-    text-align: right;
 }
 
 .attendance-month-nav__current {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 28px;
+    gap: 8px;
+    font-size: 18px;
     font-weight: 700;
     color: #000;
 }
 
 .attendance-month-nav__icon {
-    font-size: 22px;
+    font-size: 16px;
 }
 
 .attendance-list-table-wrap {
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
 }
 
@@ -168,10 +155,10 @@ main {
 
 .attendance-list-table th,
 .attendance-list-table td {
-    padding: 16px 20px;
-    border-bottom: 1px solid #e1e1e1;
+    padding: 10px 16px;
+    border-bottom: 1px solid #e5e5e5;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: #666;
 }
@@ -189,8 +176,4 @@ main {
     color: #000;
     text-decoration: none;
     font-weight: 700;
-}
-
-.attendance-list-table__detail-link:hover {
-    opacity: 0.7;
 }

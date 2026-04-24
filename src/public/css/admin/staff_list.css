@@ -94,22 +94,22 @@ main {
    スタッフ一覧
 ========================= */
 .staff-list {
-    background-color: #e9e9ec;
+    background-color: #f1f0f4;
     min-height: calc(100vh - 80px);
-    padding: 70px 20px;
+    padding: 95px 20px;
 }
 
 .staff-list__inner {
-    max-width: 800px;
+    max-width: 920px;
     margin: 0 auto;
 }
 
 .staff-list__title {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 700;
-    margin-bottom: 80px;
-    padding-left: 18px;
-    border-left: 7px solid #000;
+    margin: 0 0 100px;
+    padding-left: 24px;
+    border-left: 8px solid #000;
     line-height: 1.2;
 }
 
@@ -126,21 +126,21 @@ main {
 
 .staff-list__table th,
 .staff-list__table td {
-    padding: 16px 14px;
+    padding: 13px 16px;
     text-align: center;
     border-bottom: 1px solid #e0e0e0;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 .staff-list__table th {
     color: #666;
-    font-weight: 700;
     background-color: #fff;
 }
 
 .staff-list__table td {
     color: #666;
-    font-weight: 600;
+    letter-spacing: 0.08em;
 }
 
 .staff-list__detail-link {
@@ -149,6 +149,6 @@ main {
     font-weight: 700;
 }
 
-.staff-list__detail-link:hover {
-    opacity: 0.7;
+.staff-list__table tbody tr:last-child td {
+    border-bottom: none;
 }

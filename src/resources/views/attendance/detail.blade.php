@@ -32,14 +32,11 @@
         <div class="attendance-detail__heading">
             <span class="attendance-detail__heading-line"></span>
             <h1 class="attendance-detail__title">勤怠詳細</h1>
-            @if ($isPending)
-                <p class="attendance-detail__pending">承認待ちのため修正はできません。</p>
-            @endif
-
-            @if(session('message'))
-                <p class="attendance-detail__success">{{ session('message') }}</p>
-            @endif
         </div>
+
+        @if(session('message'))
+            <p class="attendance-detail__success">{{ session('message') }}</p>
+        @endif
 
         <form method="POST" action="{{ route('stamp_correction_request.store') }}">
             @csrf
@@ -65,22 +62,31 @@
                     <th>出勤・退勤</th>
                     <td>
                         <div class="attendance-detail__time-range">
-                            <input
-                                class="attendance-detail__time-input"
-                                type="time"
-                                name="clock_in"
-                                value="{{ old('clock_in', $attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '') }}"
-                                @if($isPending) disabled @endif
-                            >
-                            <span class="attendance-detail__separator">～</span>
-                            <input
-                                class="attendance-detail__time-input"
-                                type="time"
-                                name="clock_out"
-                                value="{{ old('clock_out', $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '') }}"
-                                @if($isPending) disabled @endif
-                            >
+                            @if($isPending)
+                                <span class="attendance-detail__time-text">
+                                    {{ $attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '' }}
+                                </span>
+                                <span class="attendance-detail__separator">〜</span>
+                                <span class="attendance-detail__time-text">
+                                    {{ $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '' }}
+                                </span>
+                            @else
+                                <input
+                                    class="attendance-detail__time-input"
+                                    type="time"
+                                    name="clock_in"
+                                    value="{{ old('clock_in', $attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '') }}"
+                                >
+                                <span class="attendance-detail__separator">〜</span>
+                                <input
+                                    class="attendance-detail__time-input"
+                                    type="time"
+                                    name="clock_out"
+                                    value="{{ old('clock_out', $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '') }}"
+                                >
+                            @endif
                         </div>
+
                         @error('clock_in')
                             <p class="attendance-detail__error">{{ $message }}</p>
                         @enderror
@@ -91,41 +97,57 @@
                 </tr>
 
                 @foreach($breakTimes as $index => $breakTime)
-                    <tr>
-                        <th>{{ $index === 0 ? '休憩' : '休憩' . ($index + 1) }}</th>
-                        <td>
-                            <div class="attendance-detail__time-range">
-                                <input
-                                    class="attendance-detail__time-input"
-                                    type="time"
-                                    name="breaks[{{ $index }}][break_start]"
-                                    value="{{ old('breaks.' . $index . '.break_start', $breakTime->break_start ? \Carbon\Carbon::parse($breakTime->break_start)->format('H:i') : '') }}"
-                                    @if($isPending) disabled @endif
-                                >
-                                <span class="attendance-detail__separator">～</span>
-                                <input
-                                    class="attendance-detail__time-input"
-                                    type="time"
-                                    name="breaks[{{ $index }}][break_end]"
-                                    value="{{ old('breaks.' . $index . '.break_end', $breakTime->break_end ? \Carbon\Carbon::parse($breakTime->break_end)->format('H:i') : '') }}"
-                                    @if($isPending) disabled @endif
-                                >
-                            </div>
+                    @php
+                        $breakStart = $breakTime->break_start ? \Carbon\Carbon::parse($breakTime->break_start)->format('H:i') : '';
+                        $breakEnd = $breakTime->break_end ? \Carbon\Carbon::parse($breakTime->break_end)->format('H:i') : '';
+                    @endphp
 
-                            @error("breaks.$index.break_start")
-                                <p class="attendance-detail__error">{{ $message }}</p>
-                            @enderror
-                            @error("breaks.$index.break_end")
-                                <p class="attendance-detail__error">{{ $message }}</p>
-                            @enderror
-                        </td>
-                    </tr>
+                    @if(!$isPending || $breakStart || $breakEnd)
+                        <tr>
+                            <th>{{ $index === 0 ? '休憩' : '休憩' . ($index + 1) }}</th>
+                            <td>
+                                <div class="attendance-detail__time-range">
+                                    @if($isPending)
+                                        <span class="attendance-detail__time-text">{{ $breakStart }}</span>
+                                        <span class="attendance-detail__separator">〜</span>
+                                        <span class="attendance-detail__time-text">{{ $breakEnd }}</span>
+                                    @else
+                                        <input
+                                            class="attendance-detail__time-input"
+                                            type="time"
+                                            name="breaks[{{ $index }}][break_start]"
+                                            value="{{ old('breaks.' . $index . '.break_start', $breakStart) }}"
+                                        >
+                                        <span class="attendance-detail__separator">〜</span>
+                                        <input
+                                            class="attendance-detail__time-input"
+                                            type="time"
+                                            name="breaks[{{ $index }}][break_end]"
+                                            value="{{ old('breaks.' . $index . '.break_end', $breakEnd) }}"
+                                        >
+                                    @endif
+                                </div>
+
+                                @error("breaks.$index.break_start")
+                                    <p class="attendance-detail__error">{{ $message }}</p>
+                                @enderror
+                                @error("breaks.$index.break_end")
+                                    <p class="attendance-detail__error">{{ $message }}</p>
+                                @enderror
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
 
                 <tr>
                     <th>備考</th>
                     <td>
-                        <textarea class="attendance-detail__note" name="note" @if($isPending) disabled @endif>{{ old('note', $attendance->note) }}</textarea>
+                        @if($isPending)
+                            <p class="attendance-detail__note-text">{{ $attendance->note }}</p>
+                        @else
+                            <textarea class="attendance-detail__note" name="note">{{ old('note', $attendance->note) }}</textarea>
+                        @endif
+
                         @error('note')
                             <p class="attendance-detail__error">{{ $message }}</p>
                         @enderror
@@ -133,7 +155,11 @@
                 </tr>
             </table>
 
-            @if (!$isPending)
+            @if($isPending)
+                <p class="attendance-detail__pending">
+                    *承認待ちのため修正はできません。
+                </p>
+            @else
                 <div class="attendance-detail__button-wrap">
                     <button type="submit" class="attendance-detail__button">修正</button>
                 </div>
