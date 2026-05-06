@@ -10,7 +10,7 @@ Laravelを用いて作成した勤怠管理アプリです。
 ### Dockerビルド
 
 ```bash
-git clone git@github.com:nozonosuke/Mock_second.git
+git clone git@github.com:nozonosuke/mock_second.git
 docker-compose up -d --build
 ```
 
