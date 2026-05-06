@@ -38,7 +38,7 @@
             <p class="attendance-detail__success">{{ session('message') }}</p>
         @endif
 
-        <form method="POST" action="{{ route('stamp_correction_request.store') }}">
+        <form method="POST" action="{{ route('attendance.requestCorrection', ['id' => $attendance->id]) }}">
             @csrf
             <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
 
@@ -143,11 +143,11 @@
                     <th>備考</th>
                     <td>
                         @if($isPending)
-                            <p class="attendance-detail__note-text">{{ $attendance->note }}</p>
+                            <p class="attendance-detail__note-text">{{ $pendingRequest->note ?? '' }}</p>
                         @else
                             <textarea class="attendance-detail__note" name="note">{{ old('note', $attendance->note) }}</textarea>
                         @endif
-
+                        
                         @error('note')
                             <p class="attendance-detail__error">{{ $message }}</p>
                         @enderror

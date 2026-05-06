@@ -27,9 +27,11 @@ Route::get('/', function () {
 });
 
 Route::middleware('guest')->group(function () {
-    Route::get('/admin/login', function () {
-        return view('admin.auth.login');
-    })->name('admin.login');
+    Route::get('/admin/login', [AdminLoginController::class, 'create'])
+        ->name('admin.login');
+
+    Route::post('/admin/login', [AdminLoginController::class, 'store'])
+        ->name('admin.login.store');
 });
 
 Route::middleware('guest')->group(function () {
@@ -81,13 +83,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('stamp_correction_request.store');
 });
 
-
-
-Route::middleware('guest')->group(function () {
-    Route::get('/admin/login', function () {
-        return view('admin.auth.login');
-    })->name('admin.login');
-});
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/attendance/list', [AdminAttendanceController::class, 'index'])

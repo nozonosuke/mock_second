@@ -73,79 +73,89 @@
 
                 <div class="detail-row">
                     <div class="detail-row__label">出勤・退勤</div>
-                    <div class="detail-row__value detail-row__value--time">
-                        <input
-                            type="time"
-                            name="clock_in"
-                            class="detail-time-input"
-                            value="{{ old('clock_in', $attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '') }}"
-                            {{ $isPending ? 'disabled' : '' }}
-                        >
-                        <span class="detail-separator">〜</span>
-                        <input
-                            type="time"
-                            name="clock_out"
-                            class="detail-time-input"
-                            value="{{ old('clock_out', $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '') }}"
-                            {{ $isPending ? 'disabled' : '' }}
-                        >
+
+                    <div class="detail-row__value">
+                        <div class="detail-time-block">
+                            <div class="detail-row__value--time">
+                                <input
+                                    type="time"
+                                    name="clock_in"
+                                    class="detail-time-input"
+                                    value="{{ old('clock_in', $attendance->clock_in ? \Carbon\Carbon::parse($attendance->clock_in)->format('H:i') : '') }}"
+                                    {{ $isPending ? 'disabled' : '' }}
+                                >
+                                <span class="detail-separator">〜</span>
+                                <input
+                                    type="time"
+                                    name="clock_out"
+                                    class="detail-time-input"
+                                    value="{{ old('clock_out', $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '') }}"
+                                    {{ $isPending ? 'disabled' : '' }}
+                                >
+                            </div>
+
+                            @error('clock_in')
+                                <div class="detail-error">{{ $message }}</div>
+                            @enderror
+                            @error('clock_out')
+                                <div class="detail-error">{{ $message }}</div>
+                            @enderror
+                        </div>
                     </div>
                 </div>
 
-                @error('clock_in')
-                    <div class="detail-error">{{ $message }}</div>
+                
+                @error('breaks')
+                    <div class="detail-error detail-error--breaks">{{ $message }}</div>
                 @enderror
-                @error('clock_out')
-                    <div class="detail-error">{{ $message }}</div>
-                @enderror
-
-                @foreach($attendance->breakTimes as $index => $break)
+                @foreach($breakTimes as $index => $break)
                     <div class="detail-row">
                         <div class="detail-row__label">
                             {{ $index === 0 ? '休憩' : '休憩' . ($index + 1) }}
                         </div>
+
                         <div class="detail-row__value detail-row__value--time">
                             <input
                                 type="time"
-                                name="breaks[{{ $break->id }}][break_start]"
+                                name="breaks[{{ $break->id ?? 'new' }}][break_start]"
                                 class="detail-time-input"
-                                value="{{ old('breaks.' . $break->id . '.break_start', $break->break_start ? \Carbon\Carbon::parse($break->break_start)->format('H:i') : '') }}"
+                                value="{{ old('breaks.' . ($break->id ?? 'new') . '.break_start', $break->break_start ? \Carbon\Carbon::parse($break->break_start)->format('H:i') : '') }}"
                                 {{ $isPending ? 'disabled' : '' }}
                             >
                             <span class="detail-separator">〜</span>
                             <input
                                 type="time"
-                                name="breaks[{{ $break->id }}][break_end]"
+                                name="breaks[{{ $break->id ?? 'new' }}][break_end]"
                                 class="detail-time-input"
-                                value="{{ old('breaks.' . $break->id . '.break_end', $break->break_end ? \Carbon\Carbon::parse($break->break_end)->format('H:i') : '') }}"
+                                value="{{ old('breaks.' . ($break->id ?? 'new') . '.break_end', $break->break_end ? \Carbon\Carbon::parse($break->break_end)->format('H:i') : '') }}"
                                 {{ $isPending ? 'disabled' : '' }}
                             >
                         </div>
                     </div>
                 @endforeach
 
-                <div class="detail-row">
-                    <div class="detail-row__label">
-                        {{ $attendance->breakTimes->count() === 0 ? '休憩' : '休憩' . ($attendance->breakTimes->count() + 1) }}
+                @unless($isPending)
+                    <div class="detail-row">
+                        <div class="detail-row__label">
+                            {{ $attendance->breakTimes->count() === 0 ? '休憩' : '休憩' . ($attendance->breakTimes->count() + 1) }}
+                        </div>
+                        <div class="detail-row__value detail-row__value--time">
+                            <input
+                                type="time"
+                                name="breaks[new][break_start]"
+                                class="detail-time-input"
+                                value="{{ old('breaks.new.break_start') }}"
+                            >
+                            <span class="detail-separator">〜</span>
+                            <input
+                                type="time"
+                                name="breaks[new][break_end]"
+                                class="detail-time-input"
+                                value="{{ old('breaks.new.break_end') }}"
+                            >
+                        </div>
                     </div>
-                    <div class="detail-row__value detail-row__value--time">
-                        <input
-                            type="time"
-                            name="breaks[new][break_start]"
-                            class="detail-time-input"
-                            value="{{ old('breaks.new.break_start') }}"
-                            {{ $isPending ? 'disabled' : '' }}
-                        >
-                        <span class="detail-separator">〜</span>
-                        <input
-                            type="time"
-                            name="breaks[new][break_end]"
-                            class="detail-time-input"
-                            value="{{ old('breaks.new.break_end') }}"
-                            {{ $isPending ? 'disabled' : '' }}
-                        >
-                    </div>
-                </div>
+                @endunless
 
                 <div class="detail-row">
                     <div class="detail-row__label">備考</div>
@@ -154,17 +164,13 @@
                             name="note"
                             class="detail-textarea"
                             {{ $isPending ? 'disabled' : '' }}
-                        >{{ old('note', $attendance->note) }}</textarea>
+                        >{{ old('note', $isPending ? ($pendingRequest->note ?? '') : $attendance->note) }}</textarea>
+
+                        @error('note')
+                            <div class="detail-error">{{ $message }}</div>
+                        @enderror
                     </div>
-                </div>
-
-                @error('breaks')
-                    <div class="detail-error">{{ $message }}</div>
-                @enderror
-
-                @error('note')
-                    <div class="detail-error">{{ $message }}</div>
-                @enderror
+                </div>               
             </div>
 
             <div class="detail-actions">

@@ -19,19 +19,35 @@ class AttendanceDetailController extends Controller
             abort(403);
         }
 
-        $breakTimes = $attendance->breakTimes->values();
+        $pendingRequest = $attendance->correctionRequests()
+            ->where('status', 'pending')
+            ->latest()
+            ->first();
 
-        // 追加1行分
+        if ($pendingRequest && $pendingRequest->requested_breaks) {
+            $breakTimes = collect($pendingRequest->requested_breaks)->map(function ($break) {
+                return (object)[
+                    'break_start' => $break['break_start'] ?? null,
+                    'break_end' => $break['break_end'] ?? null,
+                ];
+            });
+        } else {
+            $breakTimes = $attendance->breakTimes->values();
+        }
+
         $breakTimes[] = (object)[
             'break_start' => null,
             'break_end' => null,
         ];
 
-        $isPending = $attendance->correctionRequests()
-            ->where('status', 'pending')
-            ->exists();
+        $isPending = !is_null($pendingRequest);
 
-        return view('attendance.detail', compact('attendance', 'breakTimes', 'isPending'));
+        return view('attendance.detail', compact(
+            'attendance',
+            'breakTimes',
+            'isPending',
+            'pendingRequest'
+        ));
     }
 
     public function requestCorrection(AttendanceDetailRequest $request, $id)

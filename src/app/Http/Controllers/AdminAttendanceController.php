@@ -74,13 +74,33 @@ class AdminAttendanceController extends Controller
 
     public function show(Attendance $attendance)
     {
-        $attendance->load(['user', 'breakTimes']);
+        $attendance->load(['user', 'breakTimes', 'correctionRequests']);
 
-        $isPending = $attendance->correctionRequests()
+        $pendingRequest = $attendance->correctionRequests()
             ->where('status', 'pending')
-            ->exists();
+            ->latest()
+            ->first();
 
-        return view('admin.attendance.detail', compact('attendance', 'isPending'));
+        $isPending = !is_null($pendingRequest);
+
+        if ($pendingRequest && $pendingRequest->requested_breaks) {
+            $breakTimes = collect($pendingRequest->requested_breaks)->map(function ($break) {
+                return (object)[
+                    'id' => null,
+                    'break_start' => $break['break_start'] ?? null,
+                    'break_end' => $break['break_end'] ?? null,
+                ];
+            });
+        } else {
+            $breakTimes = $attendance->breakTimes->values();
+        }
+
+        return view('admin.attendance.detail', compact(
+            'attendance',
+            'isPending',
+            'pendingRequest',
+            'breakTimes'
+        ));
     }
 
     public function update(AdminAttendanceUpdateRequest $request, Attendance $attendance)
